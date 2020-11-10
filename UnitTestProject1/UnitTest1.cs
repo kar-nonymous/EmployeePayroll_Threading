@@ -9,8 +9,6 @@ namespace UnitTestProject1
     public class UnitTest1
     {
         [TestMethod]
-        /// UC 1:
-        /// Adding without thread
         public void Given4Employee_WhenAddedTOList_ShouldMatchEmployeeEntries()
         {
             List<EmployeeDetails> employeeDetails = new List<EmployeeDetails>();
@@ -19,10 +17,17 @@ namespace UnitTestProject1
             employeeDetails.Add(new EmployeeDetails { EmpID = 3, EmpName = "Douglas Costa", PhoneNo = "8745219630", Address = "Bayern", Department = "Football", Gender = "Male" });
             employeeDetails.Add(new EmployeeDetails { EmpID = 4, EmpName = "Meg Lanning", PhoneNo = "9632587410", Address = "Australia", Department = "Cricket", Gender = "Female" });
             EmployeePayrollOperations employeePayrolloperations = new EmployeePayrollOperations();
+            // UC 1
             DateTime startDateTime = DateTime.Now;
             employeePayrolloperations.addEmployeeToPayroll(employeeDetails);
             DateTime stopDateTime = DateTime.Now;
             Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
+
+            /// UC 2
+            DateTime startDateTimeThread = DateTime.Now;
+            employeePayrolloperations.addEmployeeToPayrollWithThread(employeeDetails);
+            DateTime stopDateTimeThread = DateTime.Now;
+            Console.WriteLine("Duration without thread: " + (stopDateTimeThread - startDateTimeThread));
         }
     }
 }
