@@ -23,7 +23,7 @@ namespace UnitTestProject1
             DateTime stopDateTime = DateTime.Now;
             Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
 
-            /// UC 2
+            /// UC 2 & UC 3
             DateTime startDateTimeThread = DateTime.Now;
             employeePayrolloperations.addEmployeeToPayrollWithThread(employeeDetails);
             DateTime stopDateTimeThread = DateTime.Now;

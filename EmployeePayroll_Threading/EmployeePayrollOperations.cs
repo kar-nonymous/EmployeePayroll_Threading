@@ -29,7 +29,7 @@ namespace EmployeePayroll_Threading
             Console.WriteLine();
         }
         /// <summary>
-        /// UC 2:
+        /// UC 2 & UC 3:
         /// Adding mutiple employee details to the list with thread
         /// </summary>
         /// <param name="employeePayrollDataList"></param>
