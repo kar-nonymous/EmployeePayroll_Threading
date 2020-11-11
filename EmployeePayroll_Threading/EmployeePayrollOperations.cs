@@ -13,6 +13,10 @@ namespace EmployeePayroll_Threading
         /// </summary>
         public List<EmployeeDetails> employeePayrollDetailList = new List<EmployeeDetails>();
         /// <summary>
+        /// Mutex class is defined to loack the syncronization of each thread
+        /// </summary>
+        public Mutex mutex = new Mutex();
+        /// <summary>
         /// UC 1:
         /// Adding employee details to the list
         /// </summary>
@@ -33,11 +37,11 @@ namespace EmployeePayroll_Threading
         /// Adding mutiple employee details to the list with thread
         /// </summary>
         /// <param name="employeePayrollDataList"></param>
-        public void addEmployeeToPayrollWithThread(List<EmployeeDetails> employeePayrollDataList)
+        public void AddEmployeeToPayrollWithThread(List<EmployeeDetails> employeePayrollDataList)
         {
             employeePayrollDataList.ForEach(employeeData =>
             {
-                Thread thread = new Thread(() =>
+                Task thread = new Task(() =>
                 {
                     Console.WriteLine(" Employee being added: " + employeeData.EmpName);
                     this.addEmployeePayroll(employeeData);
@@ -46,6 +50,27 @@ namespace EmployeePayroll_Threading
                 thread.Start();
             });
             Console.WriteLine(this.employeePayrollDetailList.Count);
+        }
+        /// <summary>
+        /// UC 4:
+        /// Synchronises the addition of multiple employees to list using Mutex() class.
+        /// </summary>
+        /// <param name="employeePayrollDataList"></param>
+        public void SynchronizingAddEmployeeWithThread(List<EmployeeDetails> employeePayrollDataList)
+        {
+            employeePayrollDataList.ForEach(employeeData =>
+            {
+                Task thread = new Task(() =>
+                  {
+                      mutex.WaitOne();
+                      Console.WriteLine("Employee Being added" + employeeData.EmpName);
+                      this.addEmployeePayroll(employeeData);
+                      Console.WriteLine("Employee added:" + employeeData.EmpName);
+                      Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                      mutex.ReleaseMutex();
+                  });
+                thread.Start();
+            });
         }
 
         public void addEmployeePayroll(EmployeeDetails emp)

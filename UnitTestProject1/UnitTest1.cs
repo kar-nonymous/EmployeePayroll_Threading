@@ -22,12 +22,16 @@ namespace UnitTestProject1
             employeePayrolloperations.addEmployeeToPayroll(employeeDetails);
             DateTime stopDateTime = DateTime.Now;
             Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
-
             /// UC 2 & UC 3
             DateTime startDateTimeThread = DateTime.Now;
-            employeePayrolloperations.addEmployeeToPayrollWithThread(employeeDetails);
+            employeePayrolloperations.AddEmployeeToPayrollWithThread(employeeDetails);
             DateTime stopDateTimeThread = DateTime.Now;
-            Console.WriteLine("Duration without thread: " + (stopDateTimeThread - startDateTimeThread));
+            Console.WriteLine("Duration with thread: " + (stopDateTimeThread - startDateTimeThread));
+            /// UC 4
+            DateTime startDateTimeThreadSync = DateTime.Now;
+            employeePayrolloperations.SynchronizingAddEmployeeWithThread(employeeDetails);
+            DateTime stopDateTimeThreadSync = DateTime.Now;
+            Console.WriteLine("Duration with thread: " + (stopDateTimeThreadSync - startDateTimeThreadSync));
         }
     }
 }
