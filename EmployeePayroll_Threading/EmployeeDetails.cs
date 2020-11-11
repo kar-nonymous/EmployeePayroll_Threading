@@ -6,6 +6,7 @@ namespace EmployeePayroll_Threading
 {
     public class EmployeeDetails
     {
+        public int CompanyId { get; set; }
         public int EmpID { get; set; }
         public string EmpName { get; set; }
         public string PhoneNo { get; set; }
