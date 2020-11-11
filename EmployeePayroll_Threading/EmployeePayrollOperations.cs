@@ -123,5 +123,37 @@ namespace EmployeePayroll_Threading
                 throw new Exception(ex.Message);
             }
         }
+        /// <summary>
+        /// UC 6:
+        /// Updates salary with given employee name and id.
+        /// </summary>
+        /// <param name="employeeDetails"></param>
+        /// <returns></returns>
+        public bool UpdateEmployees(EmployeeDetails employeeDetails)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    SqlCommand command = new SqlCommand("dbo.spUpdateSalary", this.connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id", employeeDetails.EmpID);
+                    command.Parameters.AddWithValue("@name", employeeDetails.EmpName);
+                    command.Parameters.AddWithValue("@salary", employeeDetails.BasicPay);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
